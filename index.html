@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nur für dich ❤️</title>
+
+<style>
+:root{
+  --bg0:#060102;
+  --bg1:#120206;
+  --bg2:#24040a;
+  --red:#b10f2e;
+  --red2:#ff2a5f;
+  --text:rgba(255,255,255,.95);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(700px 400px at 20% 15%, rgba(255,42,95,.18), transparent 60%),
+    radial-gradient(700px 400px at 80% 10%, rgba(177,15,46,.20), transparent 60%),
+    linear-gradient(180deg,var(--bg0),var(--bg2));
+  overflow-x:hidden;
+}
+
+.hidden{display:none}
+.scene{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding:24px;
+  text-align:center;
+}
+
+.overlay{
+  position:fixed; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:26px;
+  padding:22px;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+  width:min(520px,92vw);
+}
+
+h1,h2{margin:0}
+h1{font-size:2rem}
+h2{font-size:1.35rem}
+
+.hint{opacity:.85}
+
+.btn{
+  border:0;
+  border-radius:18px;
+  padding:12px 18px;
+  font-weight:800;
+  cursor:pointer;
+  color:white;
+  background:linear-gradient(135deg,var(--red2),var(--red));
+  box-shadow:0 12px 30px rgba(255,42,95,.25);
+}
+.btn.secondary{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.video{
+  width:min(860px,94vw);
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+.img{
+  width:min(460px,90vw);
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+.textbox{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:22px;
+  padding:16px;
+  max-width:760px;
+  line-height:1.45;
+}
+
+.actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+.heart{
+  position:fixed;
+  font-size:24px;
+  pointer-events:none;
+  animation:floatUp 900ms ease-out forwards;
+}
+@keyframes floatUp{
+  0%{opacity:0;transform:translateY(0) scale(.8)}
+  10%{opacity:1}
+  100%{opacity:0;transform:translateY(-220px) scale(1.4)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- START -->
+<div id="startOverlay" class="overlay">
+  <div class="card">
+    <h1>❤️ Nur für dich ❤️</h1>
+    <p class="hint">Tippe auf START – Video beginnt sofort.</p>
+    <button id="startBtn" class="btn">START ▶</button>
+  </div>
+</div>
+
+<!-- VIDEO 1 -->
+<section id="scene1" class="scene hidden">
+  <h2>❤️</h2>
+  <video id="v1" class="video" playsinline controls>
+    <source src="assets/video1.mp4" type="video/mp4">
+  </video>
+  <button id="to2" class="btn hidden">Weiter ➜</button>
+</section>
+
+<!-- VIDEO 2 -->
+<section id="scene2" class="scene hidden">
+  <h2>🎶</h2>
+  <video id="v2" class="video" playsinline controls>
+    <source src="assets/video2.mp4" type="video/mp4">
+  </video>
+  <button id="toEnd" class="btn hidden">Weiter ➜</button>
+</section>
+
+<!-- END -->
+<section id="sceneEnd" class="scene hidden">
+  <img src="assets/end.jpg" class="img">
+  <div class="textbox">
+    <b>Alles Gute, mein Fetti Fetti 💖</b><br><br>
+    Ich weiß, dass wir uns manchmal nerven.<br>
+    Manchmal bist du sauer auf mich,<br>
+    manchmal habe ich keinen Bock –<br>
+    und manchmal geht es dir genauso mit mir.<br><br>
+    Aber weißt du was?<br>
+    Genau das macht uns echt.<br><br>
+    Egal wie sehr wir uns aufregen,<br>
+    am Ende bist <b>du</b> mein Zuhause.<br><br>
+    Ich liebe dich ❤️<br>
+    <b>Seni çok seviyorum</b> ❤️
+  </div>
+
+  <p class="hint">Drück einen Button 💌</p>
+  <div class="actions">
+    <button class="btn" data-choice="Hab dich lieb ❤️">Hab dich lieb ❤️</button>
+    <button class="btn secondary" data-choice="Ich hasse dich (aus Liebe) 😈❤️">Ich hasse dich (aus Liebe) 😈❤️</button>
+  </div>
+
+  <form id="fsForm" action="https://formspree.io/f/xojnqkzl" method="POST" class="hidden">
+    <input type="hidden" name="page" value="birthday-sequence">
+    <input type="hidden" name="choice" id="choice">
+  </form>
+
+  <p id="status" class="hint"></p>
+</section>
+
+<script>
+const startBtn=document.getElementById("startBtn");
+const startOverlay=document.getElementById("startOverlay");
+const scene1=document.getElementById("scene1");
+const scene2=document.getElementById("scene2");
+const sceneEnd=document.getElementById("sceneEnd");
+const v1=document.getElementById("v1");
+const v2=document.getElementById("v2");
+const to2=document.getElementById("to2");
+const toEnd=document.getElementById("toEnd");
+const form=document.getElementById("fsForm");
+const choiceInput=document.getElementById("choice");
+const status=document.getElementById("status");
+
+function show(s){
+  [scene1,scene2,sceneEnd].forEach(x=>x.classList.add("hidden"));
+  s.classList.remove("hidden");
+}
+
+function hearts(n){
+  for(let i=0;i<n;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.textContent="❤️";
+    h.style.left=Math.random()*100+"%";
+    h.style.top="60%";
+    h.style.fontSize=(18+Math.random()*26)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+  }
+}
+
+startBtn.onclick=async()=>{
+  startOverlay.style.display="none";
+  show(scene1);
+  try{await v1.play()}catch(e){}
+};
+
+v1.onended=()=>to2.classList.remove("hidden");
+to2.onclick=async()=>{
+  hearts(25);
+  show(scene2);
+  try{await v2.play()}catch(e){}
+};
+
+v2.onended=()=>toEnd.classList.remove("hidden");
+toEnd.onclick=()=>{
+  hearts(30);
+  show(sceneEnd);
+};
+
+document.querySelectorAll("[data-choice]").forEach(b=>{
+  b.onclick=async()=>{
+    hearts(20);
+    choiceInput.value=b.dataset.choice;
+    status.textContent="Gesendet ❤️";
+    await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+  };
+});
+</script>
+
+</body>
+</html>
